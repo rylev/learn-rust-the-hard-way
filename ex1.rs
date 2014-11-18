@@ -7,3 +7,6 @@ fn main() {
     // think of macros as being the same as functions.
     println!("Hello, World");
 }
+
+// This program is fairly simple. Don't stress too much about it. Just get used
+// to the way it looks.
