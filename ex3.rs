@@ -34,3 +34,12 @@ fn main(){
 // 3.) What happens when you try to reassign a variable not declared mutable?
 // 4.) Get the compiler to compile the mutable variable reassignment code without a
 //     compiler warning.
+
+// Notes on semicolons:
+//
+// Generally most languages with semicolons fall into two camps.
+// * C/JavaScript = semicolons are mandatory.
+// * Ruby/Python  = semicolons are optional and usually ommited
+// Rust is different as semicolons are sematic meaning they have meaning. Semicolons
+// are generally used when some sort of side effect (e.g. variable assignment, IO) is
+// happening.
