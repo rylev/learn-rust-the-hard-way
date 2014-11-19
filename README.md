@@ -13,7 +13,10 @@ TODO: Instructions on compiling
 
 ## How to read the guide
 
-TODO: Tips on how to read the guide
+TODO: Tips on how to read the guide.
+
+Each chapter is based on a corresponding chapter in Learn C The Hard Way. The
+order of the chapters however may vary.
 
 ## Acknowledgements
 

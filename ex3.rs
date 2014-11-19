@@ -1,4 +1,3 @@
-// Example 3
 // http://c.learncodethehardway.org/book/ex3.html
 
 fn main(){
@@ -34,6 +33,8 @@ fn main(){
 // 3.) What happens when you try to reassign a variable not declared mutable?
 // 4.) Get the compiler to compile the mutable variable reassignment code without a
 //     compiler warning.
+// 5.) Go line by line and write down anything you don't understand and what about it
+//     confuses you.
 
 // Notes on semicolons:
 //

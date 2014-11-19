@@ -1,4 +1,3 @@
-// Example 1
 // http://c.learncodethehardway.org/book/ex1.html
 
 // All Rust programs start with a main function
