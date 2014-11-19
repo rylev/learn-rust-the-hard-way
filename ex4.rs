@@ -5,6 +5,8 @@ fn main() {
 
     // The literal for ints is a number followed by an 'i'
     // (the size of the int depends on the machine - 32 bit vs. 64 bit)
+    // int and uint (unsigned int) are the only types that depend on the specific
+    // machine's architecture.
     let distance = 100i;
     // We could have also written:
     // let distance : int = 100;
