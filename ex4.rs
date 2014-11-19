@@ -10,6 +10,11 @@ fn main() {
     // let distance : int = 100;
     println!("You are {:d} miles away.", distance);
 
+    // Literals can also have arbitray '_'s which are useful for readability:
+    // 100000000i vs 100_000_000i
+    let bigger_distance = 100_000_000i;
+    println!("You are {:d} miles away.", bigger_distance);
+
     // The literal for floats is a number followed by an 'f32' meaning a float that
     // uses 32 bits to represent the number.
     let power = 2.345f32;
