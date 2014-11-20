@@ -40,3 +40,5 @@ fn main() {
 //     before printing both. Try the inverse.
 // 2.) Why do I take a slice of args (skipping the 0th element)? Try removing that
 //     and rerunning.
+// 3.) Look up the 'break' keyword and see if you can figure out how to get the same
+//     functionality as the last for loop without first creating the slice.
