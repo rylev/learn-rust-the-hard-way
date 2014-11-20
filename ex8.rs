@@ -32,6 +32,7 @@ fn main() {
     // }
 }
 
+// Questions and Exercises:
 // 1.) Forget to initialize the first int i; so have it loop wrong.
 // 2.) Forget to initialize the second loop's i so that it retains the value
 //     from the end of the first loop. Now your second loop might or might not run.
