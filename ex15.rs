@@ -71,6 +71,10 @@ impl Row {
         std::slice::bytes::copy_memory(&mut email_copy, email.as_bytes());
         self.email = Field { field: email_copy };
     }
+
+    fn print(&self) {
+        println!("<{}> {} {}", self.id, self.name, self.email);
+    }
 }
 
 impl Show for Row {
@@ -82,6 +86,24 @@ impl Show for Row {
 impl Database {
     fn set(&mut self, id: u64, name: &str, email: &str) {
         self.rows[id as uint].set(email, email);
+    }
+
+    fn list(&self) {
+        for row in self.rows.iter() {
+            if row.set == 1 {
+                row.print();
+            }
+        }
+
+    }
+
+    fn get(&self, id: u64) {
+        let row = &self.rows[id as uint];
+        if row.set == 1 { row.print(); } else { panic!("ID is not set"); }
+    }
+
+    fn delete(&mut self, id: u64) {
+        self.rows[id as uint] = EMPTY_ROW;
     }
 }
 
@@ -156,29 +178,26 @@ fn main() {
             conn.create_database();
             conn.write_database();
         },
-        //"g" => {
-        //    if argc != 4 { panic!("Need an id to get"); }
-        //    let database = &conn.database;
-        //    database.get(id);
-        //},
+        "g" => {
+            if argc != 4 { panic!("Need an id to get"); }
+            conn.database.get(id);
+        },
         "s" => {
             if argc != 6 { panic!("Need id, name, email to set"); }
 
             conn.database.set(id, argv[4].as_slice(), argv[5].as_slice());
             conn.write_database();
         },
+        "d" => {
+            if argc != 4 { panic!("Need id to delete"); }
 
-        //"d" => {
-        //    if argc != 4 { panic!("Need id to delete"); }
 
-        //    let database = &conn.database;
-
-        //    database.delete(id);
-        //    conn.write_database();
-        //},
-        //"l" => {
-        //    conn.list_database();
-        //},
+            conn.database.delete(id);
+            conn.write_database();
+        },
+        "l" => {
+            conn.database.list();
+        },
         _ => panic!("Invalid action, only: c=create, g=get, s=set, d=del, l=list")
     }
 
