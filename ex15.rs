@@ -1,4 +1,6 @@
-use std::io::File; use std::io::FileMode::Open;
+use std::io::File;
+use std::io::FileAccess;
+use std::io::FileMode::Open;
 use std::io::FileAccess::{Write,ReadWrite};
 use std::io::IoResult;
 use std::fmt::{Show,Formatter,Error};
@@ -7,9 +9,16 @@ use std::io::SeekStyle;
 const MAX_DATA: uint = 512;
 const MAX_ROWS: uint = 100;
 
-
 struct Field {
     field: [u8, ..MAX_DATA]
+}
+
+impl Field {
+    fn empty() -> Field {
+        unsafe {
+            Field { field: std::mem::zeroed() }
+        }
+    }
 }
 
 struct Row {
@@ -19,18 +28,28 @@ struct Row {
     email: Field
 }
 
+impl Row {
+    fn empty() -> Row {
+        Row { id: 0, set: 0, name: Field::empty(), email: Field::empty() }
+    }
+}
+
 struct Database {
     rows: [Row, ..MAX_ROWS]
+}
+
+impl Database {
+    fn empty() -> Database {
+        Database {
+            rows: [Row::empty(), ..100]
+        }
+    }
 }
 
 struct Connection {
     file: File,
     database: Database
 }
-
-const EMPTY_FIELD: Field = Field { field: [0, ..MAX_DATA] };
-const EMPTY_ROW: Row = Row {id: 0, set: 0, name: EMPTY_FIELD, email: EMPTY_FIELD};
-const EMPTY_DATABASE: Database = Database {rows: [EMPTY_ROW, ..MAX_ROWS]};
 
 impl Show for Field {
     fn fmt(&self, formater: &mut Formatter) -> Result<(), Error> {
@@ -58,7 +77,7 @@ impl Row {
     }
 
     fn set(&mut self, name: &str, email: &str) {
-        if (self.set == 1) {
+        if self.set == 1  {
             panic!("already set, must first delete");
         }
         self.set = 1;
@@ -85,7 +104,7 @@ impl Show for Row {
 
 impl Database {
     fn set(&mut self, id: u64, name: &str, email: &str) {
-        self.rows[id as uint].set(email, email);
+        self.rows[id as uint].set(name, email);
     }
 
     fn list(&self) {
@@ -103,35 +122,40 @@ impl Database {
     }
 
     fn delete(&mut self, id: u64) {
-        self.rows[id as uint] = EMPTY_ROW;
+        self.rows[id as uint] = Row::empty();
     }
 }
 
 impl Connection {
     fn new(filename: &str, mode: &str) -> Connection {
-        let path = Path::new(filename);
+        let path = &Path::new(filename);
         if mode == "c" {
-            let file = match File::open_mode(&path, Open, Write){
-                Ok(file) => file,
-                Err(e) => panic!("file error: {}", e)
-            };
-            Connection { file: file, database: EMPTY_DATABASE }
+            let file = Connection::new_file(path, Write);
+            Connection { file: file, database: Database::empty() }
         } else {
-            let file = match File::open_mode(&path, Open, ReadWrite){
-                Ok(file) => file,
-                Err(e) => panic!("file error: {}", e)
-            };
-
-            let mut conn = Connection {file: file, database: EMPTY_DATABASE};
+            let file = Connection::new_file(path, ReadWrite);
+            let mut conn = Connection {file: file, database: Database::empty()};
             conn.load_database();
             conn
+        }
+    }
+
+    fn new_file(path: &Path, access: FileAccess) -> File {
+        match File::open_mode(path, Open, access) {
+            Ok(file) => file,
+            Err(e) => panic!("file error: {}", e)
+
         }
     }
 
     fn load_database(&mut self) {
         for row in self.database.rows.iter_mut() {
             // use return value to know when to stop
-            row.from_reader(&mut self.file);
+            match row.from_reader(&mut self.file) {
+                Ok(_) => (),
+                _ => return ()
+
+            };
         }
     }
 
@@ -144,12 +168,19 @@ impl Connection {
     }
 
     fn write_database(&mut self) {
-        self.file.seek(0, SeekStyle::SeekSet);
+        match self.file.seek(0, SeekStyle::SeekSet) {
+            Ok(_) => (),
+            _ => return ()
+
+        };
         for row in self.database.rows.iter_mut() {
-            row.to_writer(&mut self.file);
+            match row.to_writer(&mut self.file) {
+                Ok(_) => (),
+                _ => return ()
+
+            };
         }
     }
-
 }
 
 fn main() {
@@ -191,7 +222,6 @@ fn main() {
         "d" => {
             if argc != 4 { panic!("Need id to delete"); }
 
-
             conn.database.delete(id);
             conn.write_database();
         },
@@ -200,5 +230,4 @@ fn main() {
         },
         _ => panic!("Invalid action, only: c=create, g=get, s=set, d=del, l=list")
     }
-
 }
