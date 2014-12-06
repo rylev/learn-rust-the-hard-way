@@ -45,8 +45,14 @@ fn main() {
     // it as mutable
     let mut conn = Connection::new(filename, action);
 
+    // we must provide the type of id so that the from_str() function can cast to
+    // the right type
     let id: u8 = if argc > 3 {
         let arg = argv[3].as_slice();
+        // patterning matching against the option type
+        // Option can either be Some or None. Many languages use nil or null to represent
+        // the idea of nothingness. Rust does not support a null pointer, but rather
+        // the idea of an optional value.
         match from_str(arg) {
             Some(i) => i,
             None => panic!("{} is not a number!", arg)
@@ -55,7 +61,7 @@ fn main() {
         0
     };
 
-    if id >= (MAX_ROWS as u8) {
+    if id >= (MAX_ROWS) {
         panic!("There's not that many records.");
     }
 
@@ -89,6 +95,10 @@ fn main() {
 
 impl Field {
     fn empty() -> Field {
+        // the unsafe keyword allows us to do things that are not memory safe. By default
+        // rust is a completely memory safe language. Unlike C or C++ Rust does not
+        // allow you to arbitrarily manipulate memory. However, if you need to do so,
+        // you can use the unsafe keyword. Here we zero out the memory of the field
         unsafe {
             Field { field: std::mem::zeroed() }
         }
@@ -96,6 +106,8 @@ impl Field {
 }
 
 impl Show for Field {
+    // to implement the show trait for an struct you must implement the fmt function
+    // fmt requires you to write some Formatter.
     fn fmt(&self, formater: &mut Formatter) -> Result<(), Error> {
         write!(formater, "{}", self.field.to_ascii().as_str_ascii())
     }
@@ -107,6 +119,10 @@ impl Row {
     }
 
     fn from_reader(&mut self, file: &mut File) -> IoResult<()> {
+        // the try! macro performs the computation passed to it and returns a
+        // failure from the method if the computation fails
+        // this means that if the call to file.read_u8() fails, the entire function
+        // will fail too and none of the following lines will be executed
         self.id = try!(file.read_u8());
         self.set = try!(file.read_u8());
         try!(file.read(self.name.field.as_mut_slice()));
@@ -127,7 +143,7 @@ impl Row {
             panic!("already set, must first delete");
         }
         self.set = 1;
-        // need to check the length of the string
+
         let mut name_copy = [0,..512];
         std::slice::bytes::copy_memory(&mut name_copy, name.as_bytes());
         self.name = Field { field: name_copy };
