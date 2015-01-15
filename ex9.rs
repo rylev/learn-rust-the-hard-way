@@ -1,8 +1,7 @@
 // http://c.learncodethehardway.org/book/ex12.html
 
 // use allows us to refer to methods without using their fully qualified names
-// std::io::stdio has the println function we want and std::os contains the args() function
-use std::io::stdio;
+// std::os contains the args() function
 use std::os;
 
 fn main() {
@@ -11,17 +10,17 @@ fn main() {
 
     //  == checks for equality
     if argc == 1 {
-        stdio::println("You only have one argument. You suck.");
+        println!("You only have one argument. You suck.");
         // && is the logical and operator
     } else if argc > 1 && argc < 4  {
-        stdio::println("Here are your arguments:");
+        println!("Here are your arguments:");
 
         for arg in argv.iter() {
             print!("{} ", arg);
         }
-        stdio::println("");
+        println!("");
     } else {
-        stdio::println("You have too many arguments. You suck.");
+        println!("You have too many arguments. You suck.");
     }
 }
 
