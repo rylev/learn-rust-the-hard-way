@@ -1,13 +1,14 @@
 // http://c.learncodethehardway.org/book/ex16.html
+#![feature(box_syntax)]
 
 struct Person {
     name: &'static str,
-    age: int,
-    height: int,
-    weight: int
+    age: u8,
+    height: u8,
+    weight: u8
 }
 
-fn create_person(name: &'static str, age: int, height: int, weight: int) -> Box<Person> {
+fn create_person(name: &'static str, age: u8, height: u8, weight: u8) -> Box<Person> {
     box Person {name: name, age: age, height: height, weight: weight}
 }
 
