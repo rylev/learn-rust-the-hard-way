@@ -3,19 +3,18 @@
 fn main() {
     let states = ["California", "Oregon", "Washington", "Texas"];
 
-    // Using the non macro version of println since we do not need variable interpolation
-    std::io::stdio::println("Printing some states!");
+    println!("Printing some states!");
 
     // We will use a for loop to loop through the states array and print it.
     // for loops first declare some variable that will represent the current item
     // you have access to as you loop. You will refer to this variable in the body
     // of the for loop. After the in we use the "range" function to get a range from
     // 0 to the length of states.
-    for i in range(0, states.len()) {
+    for i in (0..states.len()) {
         println!("state {}", states[i]);
     }
 
-    std::io::stdio::println("Printing some more states!");
+    println!("Printing some more states!");
     // Perhaps a more idiomatic way to do this is to use an iterator which is simply
     // a data stucuture that permits iterating. We can get an array's iterator by calling
     // '.iter()' on it.
@@ -28,7 +27,7 @@ fn main() {
     // just like arrays but are growable.
     let args = std::os::args();
 
-    for arg in args.slice(1, args.len()).iter() {
+    for arg in args[1..args.len()].iter() {
         println!("arg {}", arg);
     }
 
