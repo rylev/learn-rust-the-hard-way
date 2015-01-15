@@ -13,7 +13,7 @@ fn main() {
     }
 
     // get the second command line argument as a slice
-    let argument = argv[1].as_slice();
+    let argument = &argv[1][];
     // ** IMPORTANT **
     // We must take access the second element from the Vector as a slice because of
     // the concept of ownership in Rust. Variables in Rust are in charge of freeing
@@ -22,7 +22,7 @@ fn main() {
     // free the same memory at different times. Disaster! Because the variable argv
     // owns the memory where the second argument is stored we can't also give that
     // memory to the the variable argument too. If we did both argv and argument
-    // would own the same piece of memory. "as_slice()" allows us to get a read only
+    // would own the same piece of memory. The final [] allows us to get a read only
     // view that piece of memory. So "argument" does own that memory (argv still
     // does) but it has the ability to read from that memory until argv goes out of
     // scope. We'll dedicate some more time to the idea in the future.
@@ -35,9 +35,9 @@ fn main() {
         // matching against. The '|' means "or".
         match letter {
             'a' | 'A' | 'e' | 'E' | 'i' |
-            'I' | 'o' | 'O' | 'u' | 'U' => println!("{:c} is a vowel!", letter),
+            'I' | 'o' | 'O' | 'u' | 'U' => println!("{} is a vowel!", letter),
         // The "_" is the "all matcher" and matches anything that didn't match before.
-            _                           => println!("{:c} is not a vowel!", letter)
+            _                           => println!("{} is not a vowel!", letter)
         }
 
     }
@@ -49,5 +49,5 @@ fn main() {
 // 2.) Google more information about pattern matching in Rust. What other patterns
 //     can you match against in Rust?
 // 3.) On the line where we get the first command line argument and assign it to
-//     the "argument" remove the "as_slice()". What error do you get? Google that error.
+//     the "argument" remove the final []. What error do you get? Google that error.
 //     Do some more research on the idea of "ownership", "moves" and "lifetimes" in Rust.
