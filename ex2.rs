@@ -9,7 +9,7 @@ use std::fmt;
 
 // Start the main function.
 fn main() {
-    let distance = 100i; // assign the integer 100 to the immutable variable distance.
+    let distance = 100i8; // assign the 8 bit integer 100 to the immutable variable distance.
 
     // this is a single line comment
 
