@@ -49,7 +49,7 @@ fn print_letters(arg: &String) {
 
 
 fn main() {
-    let argv = &std::os::args();
+    let argv = std::os::args();
     print_arguments(argv);
 }
 
