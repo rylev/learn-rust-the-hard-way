@@ -4,18 +4,20 @@ fn main() {
     // this is the syntax for an array literal. Arrays are arrays in the traditional
     // sense. They are of a fixed size. If you want to have a "growable" array use
     // vector. We will explore vectors later on.
-    let areas = [10i, 12i, 13i, 14i, 20i];
+    let areas = [10i8, 12i8, 13i8, 14i8, 20i8];
 
     // An array's type signature looks like the following.
     // Notice the explicit mention of the length.
-    let ages : [u8, ..3] = [17, 19, 89];
+    let ages : [u8; 3] = [17, 19, 89];
     // Rust also lets you get views of dynamic length into arrays called slices.
     // Notice that the type signature of the slice does not contain a length. A slice's
     // size is not known at compile time.
-    // Notice also the type signature has a strange '&'. This symbol is very important and
-    // you'll be seeing a lot in the future. For now, just ignore it.
-    let my_slice : &[u8] = ages.slice(1,2);
-    println!("My slice looks like: {}", my_slice);
+    // Notice also the strange '&'. This symbol is very important and you'll be
+    // seeing a lot in the future. For now, think about what it could possibly mean,
+    // and move on. We'll cover it soon.
+    let my_slice = &ages[0..1];
+    // '{:?}' uses the Show trait (we will cover traits later) to "show" the slice.
+    println!("My slice looks like: {:?}", my_slice);
 
     let name = "Rust";
 
@@ -27,11 +29,11 @@ fn main() {
     // are calling this function using '<int>' and providing no argument to the fuction.
     // We are parameterizing this function based on a type and not a value.
     // When dealing with types we use '<>' and when dealing with values we use '()'.
-    println!("The size of an int: {}", std::mem::size_of::<int>());
+    println!("The size of an isize: {}", std::mem::size_of::<isize>());
 
     // To get the size of the array we can get its total size in bytes
     // and divide by the size of an individual int
-    println!("The number of ints in areas: {}", std::mem::size_of_val(&areas) / std::mem::size_of::<int>());
+    println!("The number of ints in areas: {}", std::mem::size_of_val(&areas) / std::mem::size_of::<i8>());
 
     // Rust also allows calling methods on values similar to object oriented languages
     // So in order to get the length of areas, we can simply call the .len() function on it.
@@ -50,4 +52,4 @@ fn main() {
 // 1.) Change it so that instead of areas[0] you try to print areas[10]. Do some
 //      research on why you get what you get.
 // 2.) Try assigning to elements in the areas array with 'areas[0] = 100;'. What happens?
-// 3.) Trying assigning an element to area that is not an int.
+// 3.) Trying assigning an element to area that is not an i8.
