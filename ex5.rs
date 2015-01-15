@@ -1,26 +1,26 @@
 // http://c.learncodethehardway.org/book/ex7.html
 
 fn main() {
-    let bugs = 100i;
+    let bugs = 100i64;
     let bug_rate = 1.2f64;
 
-    println!("You have {:d} bugs at the imaginary rate of {:f}.", bugs, bug_rate);
+    println!("You have {} bugs at the imaginary rate of {}.", bugs, bug_rate);
 
     let universe_of_defects = 1i32 * 1024i32 * 1024i32 * 1024i32;
-    println!("The entire universe has {:d} bugs.", universe_of_defects);
+    println!("The entire universe has {} bugs.", universe_of_defects);
 
     // Notice that bugs is of type int. Unlike in C we cannot multiple an int with a
     // 64 bit float without first explicitly casting the int to a 64 bit float.
     let expected_bugs = (bugs as f64) * bug_rate;
-    println!("You are expected to have {:f} bugs.", expected_bugs);
+    println!("You are expected to have {} bugs.", expected_bugs);
 
     let part_of_universe = expected_bugs / (universe_of_defects as f64);
     println!("That is only a {:e} portion of the universe.", part_of_universe);
 
     // This makes no sense, just a demo of something weird
-    let null_byte = '\0' as int;
+    let null_byte = '\0' as i64;
     let care_percentage = bugs * null_byte;
-    println!("Which means you should care {:d}%.", care_percentage);
+    println!("Which means you should care {}%.", care_percentage);
 }
 
 // Questions and Exercises:
