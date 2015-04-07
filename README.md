@@ -9,7 +9,7 @@ Till official release it out, it is recommended to use the nightly builds. This 
 
 - Install Rust Compiler
 An easy way to install the nightly binaries for Linux and Mac is to run this in your shell:
-  $ curl -s https://static.rust-lang.org/rustup.sh | sudo sh -s -- --channel=nightly
+```$ curl -s https://static.rust-lang.org/rustup.sh | sudo sh -s -- --channel=nightly```
 
 On Windows you can use the MSI installer from downloads page
 
