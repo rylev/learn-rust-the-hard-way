@@ -1,5 +1,5 @@
 fn main() {
-    let args = std::os::args();
+    let args = std::env::args();
     let args_size = args.len();
 
     // Another way to iterate is by using a while loop. In the following cases,
