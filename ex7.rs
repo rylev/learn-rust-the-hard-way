@@ -10,7 +10,7 @@ fn main() {
     // you have access to as you loop. You will refer to this variable in the body
     // of the for loop. After the in we use the "range" function to get a range from
     // 0 to the length of states.
-    for i in (0..states.len()) {
+    for i in 0..states.len() {
         println!("state {}", states[i]);
     }
 
