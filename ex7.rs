@@ -25,9 +25,9 @@ fn main() {
     // This function gives us a vector of command line arguments
     // Remember all we know (and need to know for now) are that vectors are
     // just like arrays but are growable.
-    let args = std::os::args();
+    let args = std::env::args();
 
-    for arg in args[1..args.len()].iter() {
+    for arg in std::env::args() {
         println!("arg {}", arg);
     }
 
