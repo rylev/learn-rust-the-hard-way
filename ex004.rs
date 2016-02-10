@@ -22,7 +22,7 @@ fn main() {
     // specified by the is and us postfixes. For example, 100is will be the 64 bit
     // signed representation of 100 if running on a 64 bit architecture and
     // 32 bit if running on a 32 bit architecture.
-    let distance = 100is;
+    let distance = 100isize;
     // We could have also written:
      //let distance : isize = 100;
     println!("You are {} miles away.", distance);
