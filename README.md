@@ -7,7 +7,9 @@ Programming Language.
 
 ### On Mac and Linux
 If you are on a Mac or Linux machine only open a terminal and type
-`$ curl -sSf https://static.rust-lang.org/rustup.sh | sh`
+```
+$ curl -sSf https://static.rust-lang.org/rustup.sh | sh
+```
 This will download a script and proceed with the installation. If everything goes right, you should see
 ```
 Welcome to Rust.
