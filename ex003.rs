@@ -2,8 +2,8 @@
 
 fn main(){
     // Variable assignment is done using the 'let' keyword
-    // No type annotations are neceesary as Rust has local type inference
-    // Here we are assigning the 8 bit signed integer 10 to the variable age.
+    // No type annotations are necessary as Rust has local type inference
+    // Here we are assigning the 8-bit signed integer 10 to the variable age.
     let age = 10i8;
 
     // Number literals (integers, unsigned integers, floats, etc.) are distinguished
@@ -40,7 +40,7 @@ fn main(){
 //
 // Generally most languages with semicolons fall into two camps.
 // * C/JavaScript = semicolons are mandatory.
-// * Ruby/Python  = semicolons are optional and usually ommited
-// Rust is different as semicolons are sematic meaning they have meaning. Semicolons
+// * Ruby/Python  = semicolons are optional and usually ommited.
+// Rust is different as semicolons are semantic--meaning they have meaning. Semicolons
 // are generally used when some sort of side effect (e.g. variable assignment, IO) is
 // happening.
