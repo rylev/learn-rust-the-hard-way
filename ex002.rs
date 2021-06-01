@@ -13,7 +13,7 @@ fn main() {
 
     // this is a single line comment
 
-    // println! is a macro. that prints the formated string to stdout
+    // println! is a macro. that prints the formatted string to stdout
     println!("You are {} miles away.", distance);
 
     // Notice that unlike C we do not return some int from the main function.
